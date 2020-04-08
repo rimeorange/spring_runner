@@ -10,7 +10,7 @@ public class TodoController {
     @RequestMapping("/todos")
     public ModelAndView todos() {
         ModelAndView mav = new ModelAndView("todos");
-
         return mav;
     }
+
 }
