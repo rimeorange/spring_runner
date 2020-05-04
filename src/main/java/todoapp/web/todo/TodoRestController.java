@@ -41,6 +41,12 @@ public class TodoRestController {
         todoEditor.update(id,command.getTitle(), command.isCompleted());
     }
 
+    @DeleteMapping("/api/todos/{id}")
+    public void delete(@PathVariable("id") Long id) {
+        log.debug("id: {}", id);
+        todoEditor.delete(id);
+    }
+
     // Command 라는 이름은 spring 2.5부터 내려온 규약
     static class TodoWriteCommand {
         private String title;
