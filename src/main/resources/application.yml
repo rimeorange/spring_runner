@@ -2,3 +2,6 @@ logging.level:
   todoapp: DEBUG
   org.springframework.web: DEBUG
   org.springframework.boot: INFO
+
+site:
+  author: rimeorange
