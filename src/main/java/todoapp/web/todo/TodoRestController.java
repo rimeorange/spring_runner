@@ -11,6 +11,7 @@ import todoapp.core.todos.domain.Todo;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/todos")
 public class TodoRestController {
 
     private final Logger log = LoggerFactory.getLogger(TodoRestController.class);
@@ -23,26 +24,26 @@ public class TodoRestController {
         this.todoEditor = todoEditor;
     }
 
-    @GetMapping("/api/todos")
+    @GetMapping
     public List<Todo> todos() {
         return todoFinder.getAll();
     }
 
-    @PostMapping("/api/todos")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void create(@RequestBody TodoWriteCommand command) {
         log.debug("title: {}", command.getTitle());
         todoEditor.create(command.getTitle());
     }
 
-    @PutMapping("/api/todos/{id}")
-    public void update(@PathVariable("id") Long id, @RequestBody TodoWriteCommand command) {
+    @PutMapping("/{id}")
+    public void update(@PathVariable Long id, @RequestBody TodoWriteCommand command) {
         log.debug("id: {}, title: {} , completed: {}", id, command.getTitle(), command.isCompleted());
         todoEditor.update(id,command.getTitle(), command.isCompleted());
     }
 
-    @DeleteMapping("/api/todos/{id}")
-    public void delete(@PathVariable("id") Long id) {
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
         log.debug("id: {}", id);
         todoEditor.delete(id);
     }
