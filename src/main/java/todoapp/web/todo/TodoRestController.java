@@ -8,6 +8,8 @@ import todoapp.core.todos.application.TodoEditor;
 import todoapp.core.todos.application.TodoFinder;
 import todoapp.core.todos.domain.Todo;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @RestController
@@ -31,7 +33,7 @@ public class TodoRestController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody TodoWriteCommand command) {
+    public void create(@RequestBody @Valid TodoWriteCommand command) {
         log.debug("title: {}", command.getTitle());
         todoEditor.create(command.getTitle());
     }
@@ -50,6 +52,7 @@ public class TodoRestController {
 
     // Command 라는 이름은 spring 2.5부터 내려온 규약
     static class TodoWriteCommand {
+        @Size(min = 4, max = 140)
         private String title;
         private boolean completed;
 
